@@ -45,14 +45,14 @@
 			this.createSlides = function(slider, data){
 				var i;
 				for(i = 0; i < data.data.length; i++){
-					this.slides.push(new Slide(slider, width, height, data));
+					newSlider.slides.push(new newSlider.Slide(slider, newSlider.width, newSlider.height, data.data[i]));
 				};
 			};
 			this.downloadData = function(slider){
 				$.get(
 					slider.getAttribute("data"),
 					function(data){
-						this.createSlides(slider, data);
+						newSlider.createSlides(slider, data);
 					}
 				);
 			};
