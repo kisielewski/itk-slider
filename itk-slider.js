@@ -79,6 +79,9 @@
 				var ii = function(){self.slides[self.currentslide].show();};
 				setTimeout(ii, 30);
 			};
+			this.sliderStop(){
+				clearInterval(this.timer);
+			};
 			this.sliderStart = function(){
 				if(this.slides.length > 1){
 					this.nextSlide();
