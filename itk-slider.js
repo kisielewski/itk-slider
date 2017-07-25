@@ -8,7 +8,7 @@
 			this.currentslide = 0;
 			this.slides = new Array;
 			this.timer;
-			this.Slide = function(parent, swidth, sheight, data, speed, time){
+			this.Slide = function(parent, swidth, sheight, data, speed){
 				this.frame = document.createElement("div");
 				this.frame.style.width = swidth;
 				this.frame.style.height = sheight;
@@ -90,7 +90,7 @@
 			this.createSlides = function(slider, data){
 				var i;
 				for(i = 0; i < data.data.length; i++){
-					this.slides.push(new this.Slide(slider, this.width, this.height, data.data[i], this.speed, this.time));
+					this.slides.push(new this.Slide(slider, this.width, this.height, data.data[i], this.speed));
 				};
 				this.currentslide = Math.floor(Math.random()*i);
 				this.sliderStart();
