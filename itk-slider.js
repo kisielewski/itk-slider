@@ -7,14 +7,16 @@
 			this.time = 5000;
 			this.currentslide = 0;
 			this.slides = new Array;
-			this.Slide = function(parent, width, height, data){
+			this.timer;
+			this.Slide = function(parent, swidth, sheight, data){
 				this.frame = document.createElement("div");
-				this.frame.style.width = width;
-				this.frame.style.height = height;
+				this.frame.style.width = swidth;
+				this.frame.style.height = sheight;
 				this.frame.style.position = "absolute";
+				this.frame.style.display = "none";
 				this.slide = document.createElement("div");
-				this.slide.style.width = width;
-				this.slide.style.height = height;
+				this.slide.style.width = swidth;
+				this.slide.style.height = sheight;
 				this.slide.style.backgroundSize = "cover";
 				this.slide.style.float = "right";
 				this.slide.style.position = "relative";
@@ -40,13 +42,54 @@
 				};
 				this.frame.appendChild(this.slide);
 				parent.appendChild(this.frame);
+				
+				this.hiddenSlide = function(){
+					this.frame.style.display = "none";
+				};
+				this.hide = function(){
+					this.slide.style.float = "right";
+					$(this.frame).animate({
+						width: '0'
+					}, 1000);
+					setTimeout(this.hiddenSlide.bind(this), 995);
+				};
+				this.displaySlide = function(){
+					this.frame.style.margin = "0 0 0 "+swidth;
+					this.frame.style.width = "0";
+					this.frame.style.display = "block";
+				};
+				this.show = function(){
+					this.displaySlide();
+					this.slide.style.display = "block";
+					this.slide.style.float = "left";
+					$(this.frame).animate({
+						margin: '0 0 0 0',
+						width: swidth
+					}, 1000);
+				};
 			};
 
+			this.nextSlide = function(){
+				this.slides[this.currentslide].hide();
+				this.currentslide++;
+				if(this.currentslide >= this.slides.length){
+					this.currentslide = 0;
+				};
+				var self = this;
+				var ii = function(){self.slides[self.currentslide].show();};
+				setTimeout(ii, 30);
+			};
+			this.sliderStart = function(){
+				this.nextSlide();
+				this.timer = setInterval(this.nextSlide.bind(this), 3000);
+			};
 			this.createSlides = function(slider, data){
 				var i;
 				for(i = 0; i < data.data.length; i++){
 					this.slides.push(new this.Slide(slider, this.width, this.height, data.data[i]));
 				};
+				this.currentslide = Math.floor(Math.random()*i);
+				this.sliderStart();
 			};
 			this.downloadData = function(slider){
 				var that = this;
