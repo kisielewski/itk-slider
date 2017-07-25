@@ -119,7 +119,7 @@
 			if(slider.hasAttribute("data")){
 				this.downloadData(slider);
 			};
-			slider.style.cssText = "background-color: #737373; position: relative; font-family: Arial, Verdana, Sans-serif;";
+			slider.style.cssText += "background-color: #737373; position: relative; font-family: Arial, Verdana, Sans-serif;";
 			slider.style.width = this.width;
 			slider.style.height = this.height;
 		},
