@@ -7,6 +7,16 @@
 			this.time = 5000;
 			this.currentslide = 0;
 			this.slides = new Array;
+			this.Slide = function(){
+				this.frame;
+				
+				this.construct = function(parent, width, height, data){
+					this.frame = document.createElement("div");
+					frame.style.width = width;
+					frame.style.height = height;
+					frame.style.position = "absolute";
+				}
+			};
 
 			this.createSlides = function(data){
 				var i;
