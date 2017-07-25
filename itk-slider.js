@@ -53,7 +53,7 @@
 					slider.getAttribute("data"),
 					function(data){
 						this.createSlides(slider, JSON.parse(data));
-					};
+					}
 				);
 			};
 			this.construct = function(slider){
