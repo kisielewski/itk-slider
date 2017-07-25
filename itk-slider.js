@@ -80,8 +80,12 @@
 				setTimeout(ii, 30);
 			};
 			this.sliderStart = function(){
-				this.nextSlide();
-				this.timer = setInterval(this.nextSlide.bind(this), this.time);
+				if(this.slides.length > 1){
+					this.nextSlide();
+					this.timer = setInterval(this.nextSlide.bind(this), this.time);
+				} else if(this.slides.length == 1){
+					this.slides[0].show();
+				};
 			};
 			this.createSlides = function(slider, data){
 				var i;
