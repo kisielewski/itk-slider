@@ -42,17 +42,17 @@
 				parent.appendChild(this.frame);
 			};
 
-			this.createSlides = function(data){
+			this.createSlides = function(slider, data){
 				var i;
 				for(i = 0; i < data.data.length; i++){
-					
+					this.slides.push(new Slide(slider, width, height, data));
 				};
 			};
 			this.downloadData = function(slider){
 				$.get(
 					slider.getAttribute("data"),
 					function(data){
-						this.createSlides(JSON.parse(data));
+						this.createSlides(slider, JSON.parse(data));
 					};
 				);
 			};
