@@ -9,6 +9,42 @@
 			this.isMoving = false;
 			this.slides = new Array;
 			this.timer;
+			
+			
+			buttonBox = {
+				mover: function(){
+					this.box.style.opacity = "1";
+				},
+				mout: function(){
+					this.box.style.opacity = "0.4";
+				},
+				init: function(){
+					this.box = document.createElement("div");
+					this.box.style.cssText = "position: absolute; top: 0; right: 0; z-index: 100;opacity: 0.4; padding: 10px;";
+					slider.appendChild(this.box);
+					if(this.box.addEventListener){
+						this.box.addEventListener("mouseover", this.mover.bind(this));
+					} else if(this.box.attachEvent){
+						this.box.attachEvent("onmouseover", this.mover.bind(this));
+					};
+					if(this.box.addEventListener){
+						this.box.addEventListener("mouseout", this.mout.bind(this));
+					} else if(this.box.attachEvent){
+						this.box.attachEvent("onmouseout", this.mout.bind(this));
+					};
+				},
+				numberofbuttons: 0,
+				buttons: new Array,
+				Button: function(id, box){
+					this.nr = id;
+				},
+				addButton: function(){
+					this.buttons.push(new this.Button(this.numberofbuttons), this.box);
+					this.numberofbuttons++;
+				}
+			};
+			buttonBox.init();
+			
 			this.Slide = function(parent, swidth, sheight, data, speed){
 				this.frame = document.createElement("div");
 				this.frame.style.width = swidth;
@@ -83,7 +119,7 @@
 				var moveOff = function(){self.isMoving = false;};
 				setTimeout(moveOff, (this.speed+30));
 			};
-			this.sliderStop(){
+			this.sliderStop = function(){
 				clearInterval(this.timer);
 			};
 			this.sliderStart = function(){
