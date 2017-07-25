@@ -6,6 +6,7 @@
 			this.speed = 1000;
 			this.time = 5000;
 			this.currentslide = 0;
+			this.isMoving = false;
 			this.slides = new Array;
 			this.timer;
 			this.Slide = function(parent, swidth, sheight, data, speed){
@@ -70,6 +71,7 @@
 			};
 
 			this.nextSlide = function(){
+				this.isMoving = true;
 				this.slides[this.currentslide].hide();
 				this.currentslide++;
 				if(this.currentslide >= this.slides.length){
@@ -78,6 +80,8 @@
 				var self = this;
 				var ii = function(){self.slides[self.currentslide].show();};
 				setTimeout(ii, 30);
+				var moveOff = function(){self.isMoving = false;};
+				setTimeout(moveOff, (this.speed+30));
 			};
 			this.sliderStop(){
 				clearInterval(this.timer);
