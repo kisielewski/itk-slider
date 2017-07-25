@@ -12,9 +12,9 @@
 				
 				this.construct = function(parent, width, height, data){
 					this.frame = document.createElement("div");
-					frame.style.width = width;
-					frame.style.height = height;
-					frame.style.position = "absolute";
+					this.frame.style.width = width;
+					this.frame.style.height = height;
+					this.frame.style.position = "absolute";
 				}
 			};
 
