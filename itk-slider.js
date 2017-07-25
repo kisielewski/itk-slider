@@ -111,10 +111,10 @@
 				this.height = slider.getAttribute("height")+"px";
 			};
 			if(slider.hasAttribute("speed")){
-				this.speed = slider.getAttribute("speed");
+				this.speed = parseInt(slider.getAttribute("speed"));
 			};
 			if(slider.hasAttribute("time")){
-				this.time = slider.getAttribute("time");
+				this.time = parseInt(slider.getAttribute("time"));
 			};
 			if(slider.hasAttribute("data")){
 				this.downloadData(slider);
