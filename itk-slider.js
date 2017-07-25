@@ -8,8 +8,19 @@
 			this.currentslide = 0;
 			this.slides = new Array;
 
-			this.createSlides = function(slider){
-
+			this.createSlides = function(data){
+				var i;
+				for(i = 0; i < data.data.length; i++){
+					
+				};
+			};
+			this.downloadData = function(slider){
+				$.get(
+					slider.getAttribute("data"),
+					function(data){
+						this.createSlides(JSON.parse(data));
+					};
+				);
 			};
 			this.construct = function(slider){
 				if(slider.hasAttribute("width")){
