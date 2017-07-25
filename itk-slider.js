@@ -1,6 +1,6 @@
 (function(){
 	var itkSlider = {
-		Slider: function(){
+		Slider: function(slider){
 			this.width = "300px";
 			this.height = "500px";
 			this.speed = 1000;
@@ -57,26 +57,24 @@
 					}
 				);
 			};
-			this.construct = function(slider){
-				if(slider.hasAttribute("width")){
-					this.width = slider.getAttribute("width")+"px";
-				};
-				if(slider.hasAttribute("height")){
-					this.height = slider.getAttribute("height")+"px";
-				};
-				if(slider.hasAttribute("speed")){
-					this.speed = slider.getAttribute("speed");
-				};
-				if(slider.hasAttribute("time")){
-					this.time = slider.getAttribute("time");
-				};
-				if(slider.hasAttribute("data")){
-					this.downloadData(slider);
-				};
-				slider.style.cssText = "background-color: #737373; position: relative; font-family: Arial, Verdana, Sans-serif;";
-				slider.style.width = this.width;
-				slider.style.height = this.height;
+			if(slider.hasAttribute("width")){
+				this.width = slider.getAttribute("width")+"px";
 			};
+			if(slider.hasAttribute("height")){
+				this.height = slider.getAttribute("height")+"px";
+			};
+			if(slider.hasAttribute("speed")){
+				this.speed = slider.getAttribute("speed");
+			};
+			if(slider.hasAttribute("time")){
+				this.time = slider.getAttribute("time");
+			};
+			if(slider.hasAttribute("data")){
+				this.downloadData(slider);
+			};
+			slider.style.cssText = "background-color: #737373; position: relative; font-family: Arial, Verdana, Sans-serif;";
+			slider.style.width = this.width;
+			slider.style.height = this.height;
 		},
 		checkJQuery: function(){
 			if(!window.jQuery){
@@ -94,8 +92,7 @@
 			var sliders = document.getElementsByClassName("itk-slider");
 			var i;
 			for(i = 0; i < sliders.length; i++){
-				var newSlider = new this.Slider();
-				newSlider.construct(sliders[i]);
+				var newSlider = new this.Slider(sliders[i]);
 			};
 		},
 		init: function(){
