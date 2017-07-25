@@ -25,7 +25,7 @@
 					this.time = slider.getAttribute("time");
 				};
 				if(slider.hasAttribute("data")){
-					this.createSlides(slider);
+					this.downloadData(slider);
 				};
 			};
 		},
