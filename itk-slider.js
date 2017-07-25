@@ -7,15 +7,11 @@
 			this.time = 5000;
 			this.currentslide = 0;
 			this.slides = new Array;
-			this.Slide = function(){
-				this.frame;
-				
-				this.construct = function(parent, width, height, data){
-					this.frame = document.createElement("div");
-					this.frame.style.width = width;
-					this.frame.style.height = height;
-					this.frame.style.position = "absolute";
-				}
+			this.Slide = function(parent, width, height, data){
+				this.frame = document.createElement("div");
+				this.frame.style.width = width;
+				this.frame.style.height = height;
+				this.frame.style.position = "absolute";
 			};
 
 			this.createSlides = function(data){
