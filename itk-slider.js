@@ -1,5 +1,34 @@
 (function(){
 	var itkSlider = {
+		Slider: function(){
+			this.width = "300px";
+			this.height = "500px";
+			this.speed = 1000;
+			this.time = 5000;
+			this.currentslide = 0;
+			this.slides = new Array;
+
+			this.createSlides = function(slider){
+
+			};
+			this.construct = function(slider){
+				if(slider.hasAttribute("width")){
+					this.width = slider.getAttribute("width")+"px";
+				};
+				if(slider.hasAttribute("height")){
+					this.height = slider.getAttribute("height")+"px";
+				};
+				if(slider.hasAttribute("speed")){
+					this.speed = slider.getAttribute("speed");
+				};
+				if(slider.hasAttribute("time")){
+					this.time = slider.getAttribute("time");
+				};
+				if(slider.hasAttribute("data")){
+					this.createSlides(slider);
+				};
+			};
+		},
 		checkJQuery: function(){
 			if(!window.jQuery){
 				var script = document.createElement('script');
