@@ -8,7 +8,7 @@
 			this.currentslide = 0;
 			this.slides = new Array;
 			this.timer;
-			this.Slide = function(parent, swidth, sheight, data){
+			this.Slide = function(parent, swidth, sheight, data, speed, time){
 				this.frame = document.createElement("div");
 				this.frame.style.width = swidth;
 				this.frame.style.height = sheight;
@@ -50,8 +50,8 @@
 					this.slide.style.float = "right";
 					$(this.frame).animate({
 						width: '0'
-					}, 1000);
-					setTimeout(this.hiddenSlide.bind(this), 995);
+					}, speed);
+					setTimeout(this.hiddenSlide.bind(this), (speed-5));
 				};
 				this.displaySlide = function(){
 					this.frame.style.margin = "0 0 0 "+swidth;
@@ -65,7 +65,7 @@
 					$(this.frame).animate({
 						margin: '0 0 0 0',
 						width: swidth
-					}, 1000);
+					}, speed);
 				};
 			};
 
@@ -81,12 +81,12 @@
 			};
 			this.sliderStart = function(){
 				this.nextSlide();
-				this.timer = setInterval(this.nextSlide.bind(this), 3000);
+				this.timer = setInterval(this.nextSlide.bind(this), this.time);
 			};
 			this.createSlides = function(slider, data){
 				var i;
 				for(i = 0; i < data.data.length; i++){
-					this.slides.push(new this.Slide(slider, this.width, this.height, data.data[i]));
+					this.slides.push(new this.Slide(slider, this.width, this.height, data.data[i], this.speed, this.time));
 				};
 				this.currentslide = Math.floor(Math.random()*i);
 				this.sliderStart();
