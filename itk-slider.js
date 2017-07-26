@@ -170,7 +170,7 @@
 				var ii = function(){self.slides[self.currentslide].show();};
 				setTimeout(ii, 30);
 				var moveOff = function(){self.isMoving = false;};
-				setTimeout(moveOff, (this.speed+100));
+				setTimeout(moveOff, (this.speed+50));
 			};
 			this.sliderStop = function(){
 				clearInterval(this.timer);
