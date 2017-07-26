@@ -163,21 +163,25 @@
 				var ii = function(){self.slides[self.currentslide].show();};
 				setTimeout(ii, 30);
 				var moveOff = function(){self.isMoving = false;};
-				setTimeout(moveOff, (this.speed+30));
+				setTimeout(moveOff, (this.speed+100));
 			};
 			this.sliderStop = function(){
 				clearInterval(this.timer);
 			};
 			this.sliderStart = function(){
+				this.timer = setInterval(this.nextSlide.bind(this), this.time);
+			};
+			this.sliderRun = function(){
 				if(this.slides.length > 1){
 					this.nextSlide();
-					this.timer = setInterval(this.nextSlide.bind(this), this.time);
+					this.sliderStart();
 				} else if(this.slides.length == 1){
 					this.slides[0].show();
 				};
 			};
 			this.slide = function(id){
 				this.isMoving = true;
+				this.sliderStop();
 				this.slides[this.currentslide].hide();
 				this.currentslide = id;
 				if(this.currentslide >= this.slides.length){
@@ -189,6 +193,7 @@
 				setTimeout(ii, 30);
 				var moveOff = function(){self.isMoving = false;};
 				setTimeout(moveOff, (this.speed+30));
+				this.sliderStart();
 			};
 			this.buttonClick = function(id){
 				if(id != this.currentslide && !this.isMoving){
@@ -202,7 +207,7 @@
 					this.buttonBox.addButton(i);
 				};
 				this.currentslide = Math.floor(Math.random()*i);
-				this.sliderStart();
+				this.sliderRun();
 			};
 			this.downloadData = function(slider){
 				var that = this;
