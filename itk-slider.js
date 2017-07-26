@@ -176,7 +176,7 @@
 				clearInterval(this.timer);
 			};
 			this.sliderStart = function(){
-				this.timer = setInterval(this.nextSlide.bind(this), this.time);
+				this.timer = setInterval(this.nextSlide.bind(this), this.time+this.speed);
 			};
 			this.sliderRun = function(){
 				if(this.slides.length > 1){
