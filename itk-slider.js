@@ -9,9 +9,11 @@
 			this.isMoving = false;
 			this.slides = new Array;
 			this.timer;
+			var sdr_id = slider;
 			
 			
-			buttonBox = {
+			this.buttonBox = {
+				currentbutton: 0,
 				mover: function(){
 					this.box.style.opacity = "1";
 				},
@@ -21,7 +23,8 @@
 				init: function(){
 					this.box = document.createElement("div");
 					this.box.style.cssText = "position: absolute; top: 0; right: 0; z-index: 100;opacity: 0.4; padding: 10px;";
-					slider.appendChild(this.box);
+					sdr_id.appendChild(this.box);
+					console.log(slider);
 					if(this.box.addEventListener){
 						this.box.addEventListener("mouseover", this.mover.bind(this));
 					} else if(this.box.attachEvent){
@@ -33,17 +36,45 @@
 						this.box.attachEvent("onmouseout", this.mout.bind(this));
 					};
 				},
-				numberofbuttons: 0,
 				buttons: new Array,
 				Button: function(id, box){
+					console.log(id);
 					this.nr = id;
+					this.button = document.createElement("div");
+					this.button.style.cssText = "background-color: white; margin: 2px; text-align: center; float: left; height: 16px; width: 16px; font-size: 14px; font-weight: bold; border-radius: 8px; color: black; cursor: pointer;";
+					var number = document.createTextNode(id+1);
+					this.button.appendChild(number);
+					console.log(box);
+					box.appendChild(this.button);
+					this.mover = function(){
+						this.button.style.backgroundColor = "#0066FF";
+						this.button.style.color = "white";
+					};
+					this.mout = function(){
+						if(box.currentbutton == this.nr){
+							this.button.style.backgroundColor = "black";
+							this.button.style.color = "white";
+						} else {
+							this.button.style.backgroundColor = "white";
+							this.button.style.color = "black";
+						};
+					};
+					if(this.button.addEventListener){
+						this.button.addEventListener("mouseover", this.mover.bind(this));
+					} else if(this.button.attachEvent){
+						this.button.attachEvent("onmouseover", this.mover.bind(this));
+					};
+					if(this.button.addEventListener){
+						this.button.addEventListener("mouseout", this.mout.bind(this));
+					} else if(this.button.attachEvent){
+						this.button.attachEvent("onmouseout", this.mout.bind(this));
+					};
 				},
-				addButton: function(){
-					this.buttons.push(new this.Button(this.numberofbuttons), this.box);
-					this.numberofbuttons++;
+				addButton: function(id){
+					this.buttons.push(new this.Button(id, this.box));
 				}
 			};
-			buttonBox.init();
+			this.buttonBox.init();
 			
 			this.Slide = function(parent, swidth, sheight, data, speed){
 				this.frame = document.createElement("div");
@@ -134,6 +165,8 @@
 				var i;
 				for(i = 0; i < data.data.length; i++){
 					this.slides.push(new this.Slide(slider, this.width, this.height, data.data[i], this.speed));
+					this.buttonBox.addButton(i);
+					console.log(slider);
 				};
 				this.currentslide = Math.floor(Math.random()*i);
 				this.sliderStart();
