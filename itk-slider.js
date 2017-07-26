@@ -142,6 +142,7 @@
 					this.frame.style.margin = "0 0 0 "+swidth;
 					this.frame.style.width = "0";
 					this.frame.style.display = "block";
+					this.frame.style.overflow = "hidden";
 				};
 				this.show = function(){
 					this.displaySlide();
