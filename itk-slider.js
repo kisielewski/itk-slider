@@ -77,7 +77,7 @@
 						this.button.attachEvent("onclick", this.bclick.bind(this));
 					};
 				},
-				changeButton(id){
+				changeButton: function(id){
 					this.buttons[this.currentbutton].button.style.backgroundColor = "white";
 					this.buttons[this.currentbutton].button.style.color = "black";
 					this.currentbutton = id;
