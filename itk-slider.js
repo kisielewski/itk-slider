@@ -132,7 +132,10 @@
 					this.slide.style.float = "right";
 					$(this.frame).animate({
 						width: '0'
-					}, speed);
+					}, {
+						duration: speed,
+						queue: false
+					});
 					setTimeout(this.hiddenSlide.bind(this), (speed-5));
 				};
 				this.displaySlide = function(){
@@ -147,7 +150,10 @@
 					$(this.frame).animate({
 						margin: '0 0 0 0',
 						width: swidth
-					}, speed);
+					}, {
+						duration: speed,
+						queue: false
+					});
 				};
 			};
 
