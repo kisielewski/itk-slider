@@ -10,6 +10,7 @@
 			this.slides = new Array;
 			this.timer;
 			var sdr_id = slider;
+			this.isBox = true;
 			
 			
 			this.buttonBox = {
@@ -88,7 +89,6 @@
 					this.buttons.push(new this.Button(id, this));
 				}
 			};
-			this.buttonBox.init(this);
 			
 			this.Slide = function(parent, swidth, sheight, data, speed){
 				this.frame = document.createElement("div");
@@ -165,7 +165,7 @@
 				if(this.currentslide >= this.slides.length){
 					this.currentslide = 0;
 				};
-				this.buttonBox.changeButton(this.currentslide);
+				if(this.isBox) this.buttonBox.changeButton(this.currentslide);
 				var self = this;
 				var ii = function(){self.slides[self.currentslide].show();};
 				setTimeout(ii, 30);
@@ -194,7 +194,7 @@
 				if(this.currentslide >= this.slides.length){
 					this.currentslide = 0;
 				};
-				this.buttonBox.changeButton(this.currentslide);
+				if(this.isBox) this.buttonBox.changeButton(this.currentslide);
 				var self = this;
 				var ii = function(){self.slides[self.currentslide].show();};
 				setTimeout(ii, 30);
@@ -211,7 +211,7 @@
 				var i;
 				for(i = 0; i < data.data.length; i++){
 					this.slides.push(new this.Slide(slider, this.width, this.height, data.data[i], this.speed));
-					this.buttonBox.addButton(i);
+					if(this.isBox) this.buttonBox.addButton(i);
 				};
 				this.currentslide = Math.floor(Math.random()*i);
 				this.sliderRun();
@@ -237,6 +237,10 @@
 			if(slider.hasAttribute("time")){
 				this.time = parseInt(slider.getAttribute("time"));
 			};
+			if(slider.hasAttribute("nobuttons")){
+				this.isBox = false;
+				console.log("No");
+			} this.buttonBox.init(this);
 			if(slider.hasAttribute("data")){
 				this.downloadData(slider);
 			};
