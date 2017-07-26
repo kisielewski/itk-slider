@@ -13,7 +13,7 @@
 			
 			
 			this.buttonBox = {
-				currentbutton: 0,
+				currentbutton: 1,
 				mover: function(){
 					this.box.style.opacity = "1";
 				},
@@ -24,7 +24,6 @@
 					this.box = document.createElement("div");
 					this.box.style.cssText = "position: absolute; top: 0; right: 0; z-index: 100;opacity: 0.4; padding: 10px;";
 					sdr_id.appendChild(this.box);
-					console.log(slider);
 					if(this.box.addEventListener){
 						this.box.addEventListener("mouseover", this.mover.bind(this));
 					} else if(this.box.attachEvent){
@@ -38,20 +37,19 @@
 				},
 				buttons: new Array,
 				Button: function(id, box){
-					console.log(id);
+					this.par = box;
 					this.nr = id;
 					this.button = document.createElement("div");
 					this.button.style.cssText = "background-color: white; margin: 2px; text-align: center; float: left; height: 16px; width: 16px; font-size: 14px; font-weight: bold; border-radius: 8px; color: black; cursor: pointer;";
 					var number = document.createTextNode(id+1);
 					this.button.appendChild(number);
-					console.log(box);
-					box.appendChild(this.button);
+					this.par.box.appendChild(this.button);
 					this.mover = function(){
 						this.button.style.backgroundColor = "#0066FF";
 						this.button.style.color = "white";
 					};
 					this.mout = function(){
-						if(box.currentbutton == this.nr){
+						if(this.par.currentbutton == this.nr){
 							this.button.style.backgroundColor = "black";
 							this.button.style.color = "white";
 						} else {
@@ -70,8 +68,15 @@
 						this.button.attachEvent("onmouseout", this.mout.bind(this));
 					};
 				},
+				changeButton(id){
+					this.buttons[this.currentbutton].button.style.backgroundColor = "white";
+					this.buttons[this.currentbutton].button.style.color = "black";
+					this.currentbutton = id;
+					this.buttons[this.currentbutton].button.style.backgroundColor = "black";
+					this.buttons[this.currentbutton].button.style.color = "white";
+				},
 				addButton: function(id){
-					this.buttons.push(new this.Button(id, this.box));
+					this.buttons.push(new this.Button(id, this));
 				}
 			};
 			this.buttonBox.init();
@@ -144,6 +149,7 @@
 				if(this.currentslide >= this.slides.length){
 					this.currentslide = 0;
 				};
+				this.buttonBox.changeButton(this.currentslide);
 				var self = this;
 				var ii = function(){self.slides[self.currentslide].show();};
 				setTimeout(ii, 30);
@@ -166,7 +172,6 @@
 				for(i = 0; i < data.data.length; i++){
 					this.slides.push(new this.Slide(slider, this.width, this.height, data.data[i], this.speed));
 					this.buttonBox.addButton(i);
-					console.log(slider);
 				};
 				this.currentslide = Math.floor(Math.random()*i);
 				this.sliderStart();
