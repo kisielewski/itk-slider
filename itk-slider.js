@@ -20,7 +20,8 @@
 				mout: function(){
 					this.box.style.opacity = "0.4";
 				},
-				init: function(){
+				init: function(p){
+					this.pp = p;
 					this.box = document.createElement("div");
 					this.box.style.cssText = "position: absolute; top: 0; right: 0; z-index: 100;opacity: 0.4; padding: 10px;";
 					sdr_id.appendChild(this.box);
@@ -57,6 +58,9 @@
 							this.button.style.color = "black";
 						};
 					};
+					this.bclick = function(){
+						this.par.pp.buttonClick(this.nr);
+					};
 					if(this.button.addEventListener){
 						this.button.addEventListener("mouseover", this.mover.bind(this));
 					} else if(this.button.attachEvent){
@@ -66,6 +70,11 @@
 						this.button.addEventListener("mouseout", this.mout.bind(this));
 					} else if(this.button.attachEvent){
 						this.button.attachEvent("onmouseout", this.mout.bind(this));
+					};
+					if(this.button.addEventListener){
+						this.button.addEventListener("click", this.bclick.bind(this));
+					} else if(this.button.attachEvent){
+						this.button.attachEvent("onclick", this.bclick.bind(this));
 					};
 				},
 				changeButton(id){
@@ -79,7 +88,7 @@
 					this.buttons.push(new this.Button(id, this));
 				}
 			};
-			this.buttonBox.init();
+			this.buttonBox.init(this);
 			
 			this.Slide = function(parent, swidth, sheight, data, speed){
 				this.frame = document.createElement("div");
@@ -165,6 +174,25 @@
 					this.timer = setInterval(this.nextSlide.bind(this), this.time);
 				} else if(this.slides.length == 1){
 					this.slides[0].show();
+				};
+			};
+			this.slide = function(id){
+				this.isMoving = true;
+				this.slides[this.currentslide].hide();
+				this.currentslide = id;
+				if(this.currentslide >= this.slides.length){
+					this.currentslide = 0;
+				};
+				this.buttonBox.changeButton(this.currentslide);
+				var self = this;
+				var ii = function(){self.slides[self.currentslide].show();};
+				setTimeout(ii, 30);
+				var moveOff = function(){self.isMoving = false;};
+				setTimeout(moveOff, (this.speed+30));
+			};
+			this.buttonClick = function(id){
+				if(id != this.currentslide && !this.isMoving){
+					this.slide(id);
 				};
 			};
 			this.createSlides = function(slider, data){
